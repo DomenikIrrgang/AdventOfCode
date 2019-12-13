@@ -19,8 +19,9 @@ function calculateExtraFuelCost(totalMass: number, remainingMass: number): numbe
 }
 
 lineReader.on("line", (line: string) => {
-    fuel += calculateFuelCost(+line)
-    extraFuel = calculateExtraFuelCost(0, fuel)
+    const cost = calculateFuelCost(+line)
+    fuel += cost
+    extraFuel += calculateExtraFuelCost(0, cost)
 })
 
 lineReader.on("close", () => {
@@ -31,3 +32,4 @@ lineReader.on("close", () => {
 
 console.log(calculateExtraFuelCost(0, 14))
 console.log(calculateExtraFuelCost(0, 100756))
+console.log(calculateExtraFuelCost(0, 1969))
