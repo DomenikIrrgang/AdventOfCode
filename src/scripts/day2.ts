@@ -1,7 +1,7 @@
-import { Computer } from "./intcode/computer";
-import { Intcode } from "./intcode/intcode";
+import { Computer } from "../intcode/computer";
 import * as fs from "fs"
 
+/*
 let computer = new Computer()
 let input = fs.readFileSync("files/day2/program", "utf8")
 
@@ -17,4 +17,4 @@ for (let noun = 0; noun <= 99; noun++) {
             console.log("Answer is:", 100 * noun + verb)
         }
     }
-}
+}*/
