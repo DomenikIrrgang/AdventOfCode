@@ -20,12 +20,11 @@ export class Computer {
     public constructor() {}
 
     public start(): void {
-        this.memory = new SystemMemory(0, 3000000, 0)
-        this.cpu = new Cpu(3, this.memory)
+        this.memory = new SystemMemory(0, 300000, 0)
+        this.cpu = new Cpu(0, this.memory)
         this.processes = []
         this.cpuScheduler = new PriorityScheduler(this.processes)
-        this.rootProcess = this.loadProgram(new Idle(), ProcessPriority.ROOT)
-        setInterval(this.cpuTick.bind(this), this.cpu.getFrequency())
+        //this.rootProcess = this.loadProgram(new Idle(), ProcessPriority.ROOT)
     }
 
     private cpuTick(): void {
@@ -33,6 +32,12 @@ export class Computer {
         const instructionResult = this.cpu.cycle(process)
         if (instructionResult !== InstructionResult.OK) {
             this.stopProcess(process, instructionResult)
+        }
+    }
+    
+    public run(): void {
+        while (this.processes.length > 0) {
+            this.cpuTick()
         }
     }
 
@@ -52,7 +57,7 @@ export class Computer {
         process.getCallback()(process, exitCode)
         this.memory.free(process, process.getMemoryAllocation())
         this.processes.splice(this.processes.findIndex(value => value.getId() === process.getId()), 1)
-        console.log(`Process "${process.getName()} (${process.getId()})" exited with code ${exitCode}.`)
+        //console.log(`Process "${process.getName()} (${process.getId()})" exited with code ${exitCode}.`)
     }
     
 }

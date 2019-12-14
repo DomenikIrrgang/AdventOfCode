@@ -4,11 +4,10 @@ import { FileProgram } from "../intcode/programs/file.program";
 import { ProcessPriority } from "../intcode/process-priority";
 
 const computer = new Computer()
+const program = new FileProgram("files/day2/program.int")
 computer.start()
-computer.loadProgram(new TestProgramm())
-computer.loadProgram(new TestProgramm(), ProcessPriority.MEDIUM)
-computer.loadProgram(new TestProgramm(), ProcessPriority.HIGH)
-computer.loadProgram(new TestProgramm())
-computer.loadProgram(new FileProgram("files/day2/program.int"), ProcessPriority.HIGH, (process, exitCode) => {
-    console.log(process.getId())
-})
+
+for (let i = 0; i < 10000; i++) {
+    computer.loadProgram(program)
+    computer.run()
+}
