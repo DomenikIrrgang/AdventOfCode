@@ -32,9 +32,7 @@ export class SystemMemory implements Memory {
     }
 
     public setData(process: Process, address: number, data: number[]): void {
-        for (let tmpAddress = address; tmpAddress < address + data.length; tmpAddress++) {
-            this.write(process, tmpAddress, data[tmpAddress - address] ? data[tmpAddress - address] : this.defaultValue)
-        }
+        this.data.splice(address, data.length, ...data)
     }
 
     public getSize(): number {

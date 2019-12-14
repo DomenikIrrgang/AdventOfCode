@@ -11,7 +11,7 @@ export class MultiplyInstruction implements Instruction {
         const input1 = process.getMemory().read(process, process.getInstructionPointer() + 1)
         const input2 = process.getMemory().read(process, process.getInstructionPointer() + 2)
         const output = process.getMemory().read(process, process.getInstructionPointer() + 3)
-        process.getMemory().write(process, output, process.getMemory().read(process, input1) * process.getMemory().read(process, input2))
+        process.getMemory().write(process, process.getMemoryAllocation().startAddress + output, process.getMemory().read(process, process.getMemoryAllocation().startAddress + input1) * process.getMemory().read(process, process.getMemoryAllocation().startAddress + input2))
         return InstructionResult.OK
     }
 

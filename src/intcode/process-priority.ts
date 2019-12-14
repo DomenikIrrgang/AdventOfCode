@@ -1,0 +1,6 @@
+export enum ProcessPriority  {
+    ROOT = -1,
+    LOW = 0,
+    MEDIUM = 1,
+    HIGH = 2
+}
