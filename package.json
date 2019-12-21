@@ -18,5 +18,9 @@
   "homepage": "https://github.com/DomenikIrrgang/AdventOfCode#readme",
   "devDependencies": {
     "@types/node": "^12.12.17"
+  },
+  "dependencies": {
+    "prompt-sync": "^4.1.7",
+    "readline-sync": "^1.4.10"
   }
 }

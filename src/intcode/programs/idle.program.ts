@@ -7,7 +7,7 @@ export class Idle implements Program {
     }
     
     public getData(): number[] {
-        return [999, 0]
+        return [60, 0]
     }
 
 }

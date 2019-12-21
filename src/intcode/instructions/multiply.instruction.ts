@@ -4,14 +4,15 @@ import { Computer } from "../computer";
 import { Process } from "../process";
 import { Memory } from "../memory";
 import { InstructionResult } from "../instruction-result";
+import { InstructionOptions } from "../instruction-options";
 
-export class MultiplyInstruction implements Instruction {
+export class MultiplyInstruction extends Instruction {
 
-    public execute(process: Process): number {
-        const input1 = process.getMemory().read(process, process.getInstructionPointer() + 1)
-        const input2 = process.getMemory().read(process, process.getInstructionPointer() + 2)
+    public execute(options: InstructionOptions, process: Process): number {
+        const input1 = this.getParameterValue(process, options, 1)
+        const input2 = this.getParameterValue(process, options, 2)
         const output = process.getMemory().read(process, process.getInstructionPointer() + 3)
-        process.getMemory().write(process, process.getMemoryAllocation().startAddress + output, process.getMemory().read(process, process.getMemoryAllocation().startAddress + input1) * process.getMemory().read(process, process.getMemoryAllocation().startAddress + input2))
+        process.getMemory().write(process, process.getMemoryAllocation().startAddress + output, input1 * input2)
         return InstructionResult.OK
     }
 

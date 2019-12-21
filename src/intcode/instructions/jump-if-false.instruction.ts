@@ -1,19 +1,20 @@
 import { Instruction } from "../instruction";
 import { Process } from "../process";
-import { Memory } from "../memory";
 import { InstructionResult } from "../instruction-result";
 import { InstructionOptions } from "../instruction-options";
 
-export class JumpInstruction extends Instruction {
+export class JumpIfFalseInstruction extends Instruction {
 
     public execute(options: InstructionOptions, process: Process): number {
-        const address = process.getMemory().read(process, process.getInstructionPointer() + 1)
-        process.setInstructionPointer(address - this.getParameterCount() - 1)
+        const value = this.getParameterValue(process, options, 1)
+        if (value === 0) {
+            process.setInstructionPointer(this.getParameterValue(process, options, 2) - this.getParameterCount() - 1)
+        }
         return InstructionResult.OK
     }
 
     public getParameterCount(): number {
-        return 1
+        return 2
     }
     
 }

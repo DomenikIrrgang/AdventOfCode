@@ -4,10 +4,7 @@ import { FileProgram } from "../intcode/programs/file.program";
 import { ProcessPriority } from "../intcode/process-priority";
 
 const computer = new Computer()
-const program = new FileProgram("files/day2/program.int")
+const program = new FileProgram("files/day5/diagnostic.int")
 computer.start()
-
-for (let i = 0; i < 10000; i++) {
-    computer.loadProgram(program)
-    computer.run()
-}
+computer.loadProgram(program)
+computer.run()

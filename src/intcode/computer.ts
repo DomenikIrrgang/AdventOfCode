@@ -27,7 +27,7 @@ export class Computer {
         //this.rootProcess = this.loadProgram(new Idle(), ProcessPriority.ROOT)
     }
 
-    private cpuTick(): void {
+    private cpuTick(): void{
         const process = this.cpuScheduler.nextProcess()
         const instructionResult = this.cpu.cycle(process)
         if (instructionResult !== InstructionResult.OK) {

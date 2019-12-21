@@ -4,10 +4,11 @@ import { Computer } from "../computer";
 import { Process } from "../process";
 import { Memory } from "../memory";
 import { InstructionResult } from "../instruction-result";
+import { InstructionOptions } from "../instruction-options";
 
-export class ExitInstruction implements Instruction {
+export class ExitInstruction extends Instruction {
 
-    public execute(process: Process): number { 
+    public execute(options: InstructionOptions, process: Process): number { 
         return InstructionResult.EXIT
     }
 
