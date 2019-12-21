@@ -13,7 +13,7 @@ export class InputInstruction extends Instruction {
 
     public execute(options: InstructionOptions, process: Process): number { 
         let address = this.getOutputAddress(process, options, 1)
-        const input = 2//+console("> ")
+        const input = +console("> ")
         process.getMemory().write(process, process.getMemoryAllocation().startAddress + address, input)
         return InstructionResult.OK
     }
