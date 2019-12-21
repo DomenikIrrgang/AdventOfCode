@@ -12,7 +12,6 @@ import { PriorityScheduler } from "./cpu-scheduler/priority-scheduler";
 export class Computer {
     
     private memory: SystemMemory
-    private rootProcess: Process
     private processes: Process[]
     private cpu: Cpu
     private cpuScheduler: CpuScheduler
@@ -24,7 +23,6 @@ export class Computer {
         this.cpu = new Cpu(0, this.memory)
         this.processes = []
         this.cpuScheduler = new PriorityScheduler(this.processes)
-        //this.rootProcess = this.loadProgram(new Idle(), ProcessPriority.ROOT)
     }
 
     private cpuTick(): void{
@@ -43,13 +41,13 @@ export class Computer {
 
     public loadProgram(program: Program, priority: ProcessPriority = ProcessPriority.LOW, callback: (process: Process, exitCode: number) => void = () => {}): Process {
         const process = new Process(this.processes.length, program.getName(), program, this.memory)
-        this.processes.push(process)
         const processMemory = this.memory.allocate(process, program.getData().length * 10)
         process.setMemoryAllocation(processMemory)
         process.setInstructionPointer(processMemory.startAddress)
         process.setPriority(priority)
         process.setCallback(callback)
         this.memory.setData(process, processMemory.startAddress, program.getData())
+        this.processes.push(process)
         return process
     }
 
