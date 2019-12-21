@@ -49,7 +49,7 @@ export class SystemMemory implements Memory {
             let allocation: MemoryAllocation = Object.freeze({
                 startAddress: address,
                 endAddress: address + size - 1,
-                process
+                processId: process.getId()
             })
             this.allocations.push(allocation)
             return allocation
@@ -69,7 +69,7 @@ export class SystemMemory implements Memory {
     }
 
     private assertHasAccess(process: Process, address: number): void {
-        if (this.findAllocation(address) === undefined || this.findAllocation(address).process.getId() !== process.getId())
+        if (this.findAllocation(address) === undefined || this.findAllocation(address).processId !== process.getId())
             throw new Error(`The address ${address} is not allocated to process "${process.getName()} (${process.getId()})"`)
     }
 

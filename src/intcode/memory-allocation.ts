@@ -1,7 +1,7 @@
 import { Process } from "./process";
 
 export interface MemoryAllocation {
-    process: Process
+    processId: number
     startAddress: number
     endAddress: number
 }

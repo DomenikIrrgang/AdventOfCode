@@ -7,7 +7,7 @@ export class Process {
 
     private instructionPointer: number
 
-    public constructor(private id: number, private name: string, private program: Program, private memory: Memory, private memoryAllocation: MemoryAllocation = undefined, private priority: ProcessPriority = ProcessPriority.LOW, private callback: (process: Process, exitCode: number) => void = () => {}) { }
+    public constructor(private id: number, private name: string, private program: Program, private memory: Memory, private memoryAllocation: MemoryAllocation = undefined, private priority: ProcessPriority = ProcessPriority.LOW, private relativeBase: number = 0, private callback: (process: Process, exitCode: number) => void = () => {}) { }
 
     public getId(): number {
         return this.id
@@ -55,6 +55,14 @@ export class Process {
 
     public getCallback(): (process: Process, exitCode: number) => void {
         return this.callback
+    }
+
+    public getRelativeBase(): number {
+        return this.relativeBase
+    }
+
+    public setRelativebase(relativeBase: number): void {
+        this.relativeBase = relativeBase
     }
 
 }

@@ -12,8 +12,8 @@ const console = prompt()
 export class InputInstruction extends Instruction {
 
     public execute(options: InstructionOptions, process: Process): number { 
-        const address = process.getMemory().read(process, process.getInstructionPointer() + 1)
-        const input = +console("> ")
+        let address = this.getOutputAddress(process, options, 1)
+        const input = 2//+console("> ")
         process.getMemory().write(process, process.getMemoryAllocation().startAddress + address, input)
         return InstructionResult.OK
     }

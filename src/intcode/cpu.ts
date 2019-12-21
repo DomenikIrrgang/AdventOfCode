@@ -12,10 +12,12 @@ import { JumpIfTrueInstruction } from "./instructions/jump-if-true.instruction";
 import { JumpIfFalseInstruction } from "./instructions/jump-if-false.instruction";
 import { LessThanInstruction } from "./instructions/less-than.instruction";
 import { EqualsInstruction } from "./instructions/equals.instruction";
+import { BaseInstruction } from "./instructions/base.instruction";
 
 export class Cpu {
 
     private instructionSet: Map<number, Instruction> = new Map()
+    //private executionStack: Array<{ instruction: Instruction, options: InstructionOptions, process: Process }> = []
 
     public constructor(private frequenzy: number, private memory: Memory) {
         this.instructionSet.set(1, new AddInstruction())
@@ -26,6 +28,7 @@ export class Cpu {
         this.instructionSet.set(6, new JumpIfFalseInstruction())
         this.instructionSet.set(7, new LessThanInstruction())
         this.instructionSet.set(8, new EqualsInstruction())
+        this.instructionSet.set(9, new BaseInstruction())
         this.instructionSet.set(60, new JumpInstruction())
         this.instructionSet.set(99, new ExitInstruction())
     }
@@ -33,8 +36,9 @@ export class Cpu {
     public cycle(process: Process): number {
         const instructionOptions = this.calculateInstructionOptions(this.memory.read(process, process.getInstructionPointer()))
         const instruction = this.instructionSet.get(instructionOptions.opCode)
+        //this.executionStack.push({ instruction, options: instructionOptions, process: JSON.parse(JSON.stringify(process))})
         if (instruction === undefined) {
-            throw new Error(`Trying to execute unknown instruction ${this.memory.read(process, process.getInstructionPointer())}`)
+            throw new Error(`Trying to execute unknown instruction ${instructionOptions.opCode}`)
         }
         const instructionResult = instruction.execute(instructionOptions, process)
         process.setInstructionPointer(process.getInstructionPointer() + instruction.getParameterCount() + 1)

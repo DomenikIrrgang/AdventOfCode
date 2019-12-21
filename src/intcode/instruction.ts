@@ -8,6 +8,10 @@ export abstract class Instruction {
 
     protected getParameterValue(process: Process, options: InstructionOptions, parameter: number): number {
         switch (options.parameterModes[parameter - 1]) {
+            case 2: {
+                const address = process.getMemory().read(process, process.getInstructionPointer() + parameter)
+                return process.getMemory().read(process, process.getMemoryAllocation().startAddress + process.getRelativeBase() + address)
+            }
             case 1:
                 return process.getMemory().read(process, process.getInstructionPointer() + parameter)
             case 0: {
@@ -21,5 +25,13 @@ export abstract class Instruction {
             default:
                 return process.getMemory().read(process, process.getInstructionPointer() + parameter)
         }
+    }
+
+    protected getAddress(process: Process, options: InstructionOptions, parameter: number, address: number): number {
+        return (options.parameterModes[parameter - 1] == 2) ? process.getRelativeBase() + address : address
+    }
+
+    protected getOutputAddress(process: Process, options: InstructionOptions, parameter: number): number {
+        return this.getAddress(process, options, parameter, process.getMemory().read(process, process.getInstructionPointer() + parameter))
     }
 }

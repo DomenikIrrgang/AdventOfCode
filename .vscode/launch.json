@@ -16,7 +16,7 @@
             "outFiles": [
                 "${workspaceFolder}/dist/**/*.js"
             ],
-            "console": "integratedTerminal"
+            "console": "internalConsole"
         }
     ]
 }
